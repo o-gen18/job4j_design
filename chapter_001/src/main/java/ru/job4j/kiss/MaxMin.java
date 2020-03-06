@@ -5,8 +5,13 @@ import java.util.List;
 
 public class MaxMin {
     public <T> T max(List<T> value, Comparator<T> comparator) {
-        value.sort(comparator);
-        return value.get(value.size() - 1);
+        T max = value.get(0);
+        for (int i = 0; i < value.size() - 1; i++) {
+            if (!(comparator.compare(max, value.get(i + 1)) >= 0)) {
+                max = value.get(i + 1);
+            }
+        }
+        return max;
     }
 
     public <T> T min(List<T> value, Comparator<T> comparator) {
