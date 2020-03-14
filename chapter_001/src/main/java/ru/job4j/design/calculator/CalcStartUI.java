@@ -23,6 +23,8 @@ public class CalcStartUI {
         actions.add(new Subtraction());
         actions.add(new Division());
         actions.add(new Multiplication());
+        actions.add(new Sinus());
+        actions.add(new Cosinus());
         actions.add(new ClearMemory());
         actions.add(new Exit());
         new CalcStartUI().init(input, calculator, actions, System.out::println);
@@ -31,6 +33,8 @@ public class CalcStartUI {
     public static void setBuffer(Double newBuffer) {
         buffer = newBuffer;
     }
+
+    public static double getBuffer() { return buffer; }
 
     public static void setRunBuffer(boolean run) {
         runBuffer = run;
