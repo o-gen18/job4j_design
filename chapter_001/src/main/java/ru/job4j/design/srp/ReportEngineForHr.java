@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class ReportEngineForHr extends ReportEngine{
+public class ReportEngineForHr implements ReportEngine {
     private Store store;
 
     public ReportEngineForHr(Store store) {
@@ -19,11 +19,12 @@ public class ReportEngineForHr extends ReportEngine{
         }
     }
 
+    @Override
     public String generate(Predicate<Employer> filter) {
         StringBuilder text = new StringBuilder();
         text.append("Name; Salary").append(System.lineSeparator());
         List<Employer> sorted = store.findBy(filter).stream().sorted(new ComparatorSalaryDown()).collect(Collectors.toList());
-        for(Employer employer : sorted) {
+        for (Employer employer : sorted) {
             text.append(employer.getName()).append(";")
                     .append(employer.getSalary()).append(";")
                     .append(System.lineSeparator());

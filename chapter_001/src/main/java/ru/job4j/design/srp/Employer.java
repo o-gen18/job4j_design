@@ -9,7 +9,7 @@ public class Employer {
     private Calendar fired;
     private double salary;
 
-    public Employer(String name, Calendar hired, Calendar fired, double salary)  {
+    public Employer(String name, Calendar hired, Calendar fired, double salary) {
         this.name = name;
         this.hired = hired;
         this.fired = fired;
@@ -50,8 +50,8 @@ public class Employer {
 
     @Override
     public boolean equals(Object o) {
-        if(this == o) return true;
-        if(o ==null || getClass() != o.getClass()) return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Employer employer = (Employer) o;
         return Objects.equals(name, employer.name);
     }

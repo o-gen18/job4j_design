@@ -1,8 +1,10 @@
 package ru.job4j.design.srp;
 
 import org.junit.Test;
+
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+
 import java.util.Calendar;
 
 public class ReportEngineTest {
@@ -12,7 +14,7 @@ public class ReportEngineTest {
         Calendar now = Calendar.getInstance();
         Employer worker = new Employer("Ivan", now, now, 100);
         store.add(worker);
-        ReportEngine engine = new ReportEngine(store);
+        ReportEngine engine = new OldReportEngine(store);
         StringBuilder expected = new StringBuilder()
                 .append("Name; Hired; Fired; Salary")
                 .append(System.lineSeparator())
@@ -23,6 +25,7 @@ public class ReportEngineTest {
                 .append(System.lineSeparator());
         assertThat(engine.generate(em -> true), is(expected.toString()));
     }
+
     @Test
     public void whenGenerateForHr() {
         MemStore store = new MemStore();
@@ -32,7 +35,7 @@ public class ReportEngineTest {
         store.add(worker);
         store.add(worker2);
         store.add(worker3);
-        ReportEngineForHr engine = new ReportEngineForHr(store);
+        ReportEngine engine = new ReportEngineForHr(store);
         StringBuilder expected = new StringBuilder()
                 .append("Name; Salary").append(System.lineSeparator())
                 .append(worker3.getName()).append(";")
@@ -52,7 +55,7 @@ public class ReportEngineTest {
         Employer worker2 = new Employer("Oleg", now, now, 200);
         store.add(worker);
         store.add(worker2);
-        ReportEngineForProgrammers engine = new ReportEngineForProgrammers(store);
+        ReportEngine engine = new ReportEngineForProgrammers(store);
         StringBuilder expected = new StringBuilder()
                 .append("<div><h1>Report</h1><p>Name Hired Fired Salary").append(System.lineSeparator())
                 .append(worker.getName()).append(";")
@@ -65,4 +68,23 @@ public class ReportEngineTest {
                 .append(worker2.getSalary()).append(";").append(System.lineSeparator()).append("<p><div>");
         assertThat(engine.generate(em -> true), is(expected.toString()));
     }
+
+    @Test
+    public void whenGenerateForAccountants() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employer worker = new Employer("Ivan", now, now, 100.12345678987654321);
+        store.add(worker);
+        ReportEngine engine = new ReportForAccountants(store);
+        StringBuilder expected = new StringBuilder()
+                .append("Name; Hired; Fired; Salary")
+                .append(System.lineSeparator())
+                .append(worker.getName()).append(";")
+                .append(worker.getHired()).append(";")
+                .append(worker.getFired()).append(";")
+                .append("100,1235").append(";")
+                .append(System.lineSeparator());
+        assertThat(engine.generate(em -> true), is(expected.toString()));
+    }
+
 }
