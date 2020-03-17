@@ -10,12 +10,14 @@ public class SimpleGenerator {
     private Matcher matcher;
 
     public String generate(String template, Map<String, String> mappings) {
-        Set<Pattern> compiledKeys = mappings.keySet().stream().map(Pattern::compile).collect(Collectors.toSet());
         String changed = null;
-        for (Pattern pattern : compiledKeys) {
-            matcher = pattern.matcher(template);
-            if(matcher.matches()) {
-                changed = template.replace(pattern.toString(), mappings.get(pattern.toString()));
+        for (String word : template.split("[ ,?]")) {
+            for (String key : mappings.keySet()) {
+                if(word.matches(key)) {
+                    changed = template.replaceFirst(word, mappings.get(key));
+                    mappings.remove(key, mappings.get(key));
+                    break;
+                }
             }
         }
         return changed;
