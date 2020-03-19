@@ -25,7 +25,7 @@ public class Sum implements UserChoice{
     public boolean execute(double first, CalcInput input, Calculator calculator, Consumer<String> output) {
         double second = input.askDouble("Прибавить: ");
         double result = calculator.add(first, second);
-        CalcStartUI.setBuffer(result);
+        CalcStartUI.Buffer.setBuffer(result);
         output.accept("Ответ: " + first + " + " + second + " = " + result + System.lineSeparator());
         return true;
     }

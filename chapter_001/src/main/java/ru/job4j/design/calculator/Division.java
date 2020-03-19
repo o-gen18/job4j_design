@@ -23,7 +23,7 @@ public class Division implements UserChoice {
     public boolean execute(double first, CalcInput input, Calculator calculator, Consumer<String> output) {
         double second = input.askDouble("Разделить на: ");
         double result = calculator.divide(first, second);
-        CalcStartUI.setBuffer(result);
+        CalcStartUI.Buffer.setBuffer(result);
         output.accept("Ответ: " + first + " / " + second + " = " + result + System.lineSeparator());
         return true;
     }

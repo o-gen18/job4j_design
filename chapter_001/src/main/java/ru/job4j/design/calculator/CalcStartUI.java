@@ -4,16 +4,32 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 
 public class CalcStartUI {
-    /**
-     * Static field used to indicate if the previous operations can be used next.
-     */
-    private static boolean runBuffer;
+    static class Buffer{
+        /**
+         * Static field used to indicate if the previous operations can be used next.
+         */
+        private static boolean runBuffer;
 
-    /**
-     * Static field used to store temporary values got from any
-     * class that implement abstract method "execute" in UserChoice interface.
-     */
-    private static double buffer;
+        /**
+         * Static field used to store temporary values got from any
+         * class that implement abstract method "execute" in UserChoice interface.
+         */
+        private static double buffer;
+
+        public static void setBuffer(Double newBuffer) {
+            buffer = newBuffer;
+        }
+
+        public static double getBuffer() { return buffer; }
+
+        public static void setRunBuffer(boolean run) {
+            runBuffer = run;
+        }
+
+        public static boolean getRunBuffer() {
+            return runBuffer;
+        }
+    }
 
     public static void main(String[] args) {
         CalcInput input = new ConsoleInput();
@@ -30,27 +46,17 @@ public class CalcStartUI {
         new CalcStartUI().init(input, calculator, actions, System.out::println);
     }
 
-    public static void setBuffer(Double newBuffer) {
-        buffer = newBuffer;
-    }
-
-    public static double getBuffer() { return buffer; }
-
-    public static void setRunBuffer(boolean run) {
-        runBuffer = run;
-    }
-
     public void init(CalcInput input, Calculator calculator, ArrayList<UserChoice> actions, Consumer<String> output) {
         boolean runCalc = true;
         while (runCalc) {
-            buffer = input.askDouble("Введите число: ");
-            this.runBuffer = true;
-            while (runBuffer) {
+            Buffer.setBuffer(input.askDouble("Введите число: "));
+            Buffer.setRunBuffer(true);
+            while (Buffer.getRunBuffer()) {
                 this.showMenu(actions);
                 int choice = input.askChoice("", actions.size());
                 UserChoice selected = actions.get(choice);
-                runCalc = selected.execute(buffer, input, calculator, output);
-                if(runCalc == false) break;
+                runCalc = selected.execute(Buffer.getBuffer(), input, calculator, output);
+                if(!runCalc) break;
             }
         }
     }
