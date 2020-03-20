@@ -12,17 +12,10 @@ public class ControlQuality {
      * This field is created to compare with food's dates.
      */
     private Calendar now = Calendar.getInstance();
-    private Set<Food> foodPack = new HashSet<>();
 
-    static Shop shop = new Shop();
-    static Warehouse warehouse = new Warehouse();
-    static Trash trash = new Trash();
-
-    public ControlQuality(Set<Food> food) {
-        if (food != null) {
-            this.foodPack.addAll(food);
-        }
-    }
+    private Shop shop = new Shop();
+    private Warehouse warehouse = new Warehouse();
+    private Trash trash = new Trash();
 
     /**
      * Getter and Setter of Calendar-now instance for testing;
@@ -36,28 +29,35 @@ public class ControlQuality {
         this.now = calendar;
     }
 
+    public Shop getShop() {
+        return shop;
+    }
+
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    public Trash getTrash() {
+        return trash;
+    }
+
     /**
      * Calculates the percentage value of food's expiry date.
      * @param food
      * @return int number meaning percents.
      */
     public int expiryPercentage(Food food) {
-        return (int) (100 * (now.getTimeInMillis() - food.getCreateDate().getTimeInMillis()) /
-                (food.getExpiryDate().getTimeInMillis() - food.getCreateDate().getTimeInMillis()));
+        int percent = -1;
+        if (food != null && !(getNow().getTimeInMillis() > food.getExpiryDate().getTimeInMillis())) {
+            percent = (int) (100 * (now.getTimeInMillis() - food.getCreateDate().getTimeInMillis()) /
+                    (food.getExpiryDate().getTimeInMillis() - food.getCreateDate().getTimeInMillis()));
+        }
+        return percent;
     }
 
-    public void allocate() {
-        for (Food food : foodPack) {
-            if (now.getTimeInMillis() > food.getExpiryDate().getTimeInMillis()) {
-                trash.add(food);
-            } else if (expiryPercentage(food) >= 75) {
-                food.setDiscount("50%");
-                shop.add(food);
-            } else if (expiryPercentage(food) < 75 && expiryPercentage(food) >= 25) {
-                shop.add(food);
-            } else if (expiryPercentage(food) < 25) {
-                warehouse.add(food);
-            }
-        }
+    public void allocate(Set<Food> foodPack) {
+        shop.allocate(foodPack, this);
+        warehouse.allocate(foodPack, this);
+        trash.allocate(foodPack, this);
     }
 }

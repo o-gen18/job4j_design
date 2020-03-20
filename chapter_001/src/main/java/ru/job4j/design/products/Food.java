@@ -60,7 +60,7 @@ public class Food {
 
     @Override
     public String toString() {
-        return "Name - " + name;
+        return "Name - " + name + ", Discount = " + discount;
     }
 
     @Override

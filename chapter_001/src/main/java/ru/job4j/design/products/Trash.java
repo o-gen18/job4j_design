@@ -4,21 +4,18 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class Trash {
+public class Trash implements Storage {
     private Set<Food> pack = new HashSet<>();
-
-    public Trash() {
-    }
-
-    public Trash(Set<Food> foodPack) {
-        pack.addAll(foodPack);
-    }
-
-    public void add(Food food) {
-        pack.add(food);
-    }
 
     public Set<Food> getPack() {
         return pack;
+    }
+
+    public void allocate(Set<Food> foodPack, ControlQuality control) {
+        for (Food food : foodPack) {
+            if (control.getNow().getTimeInMillis() > food.getExpiryDate().getTimeInMillis()) {
+                pack.add(food);
+            }
+        }
     }
 }

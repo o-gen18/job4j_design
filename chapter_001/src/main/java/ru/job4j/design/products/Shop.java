@@ -2,23 +2,23 @@ package ru.job4j.design.products;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Predicate;
 
-public class Shop {
+public class Shop implements Storage {
     private Set<Food> pack = new HashSet<>();
-
-    public Shop() {
-    }
-
-    public Shop(Set<Food> foodPack) {
-        pack.addAll(foodPack);
-    }
-
-    public void add(Food food) {
-        pack.add(food);
-    }
 
     public Set<Food> getPack() {
         return pack;
+    }
+
+    @Override
+    public void allocate(Set<Food> foodPack, ControlQuality control) {
+        for (Food food : foodPack) {
+            if (control.expiryPercentage(food) >= 75) {
+                food.setDiscount("50%");
+                pack.add(food);
+            } else if (control.expiryPercentage(food) < 75 && control.expiryPercentage(food) >= 25) {
+                pack.add(food);
+            }
+        }
     }
 }

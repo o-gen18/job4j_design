@@ -12,36 +12,60 @@ public class ControlQualityTest {
     @Test
     public void whenAllocateProducts() {
         Calendar january20 = Calendar.getInstance();
-        january20.set(2020,0,15);
+        january20.set(2020, Calendar.JANUARY,15);
         Calendar november19 = Calendar.getInstance();
-        november19.set(2019, 10, 15);
+        november19.set(2019, Calendar.NOVEMBER, 15);
         Calendar february20 = Calendar.getInstance();
-        february20.set(2020, 1, 15);
+        february20.set(2020, Calendar.FEBRUARY, 15);
         Calendar march20 = Calendar.getInstance();
-        march20.set(2020, 2, 15);
+        march20.set(2020, Calendar.MARCH, 15);
         Calendar april20 = Calendar.getInstance();
-        april20.set(2020, 3, 15);
+        april20.set(2020, Calendar.APRIL, 5);
         Calendar may20 = Calendar.getInstance();
-        may20.set(2020, 4, 15);
+        may20.set(2020, Calendar.MAY, 15);
         Calendar june20 = Calendar.getInstance();
-        june20.set(2020, 5, 15);
+        june20.set(2020, Calendar.JUNE, 15);
 
         Set<Food> food = Set.of(new Food("milkRotten", november19, february20, 60, "0"),
                 new Food("milkOld", january20, april20, 60, "0"),
                 new Food("milkFresh", february20, may20, 60, "0"),
                 new Food("milkJustMade", march20, june20, 60, "0"));
-        ControlQuality control = new ControlQuality(food);
-        control.allocate();
+        ControlQuality control = new ControlQuality();
+        control.allocate(food);
         Set<Food> expectedShop = Set.of(new Food("milkOld", january20, april20, 60, "50%"),
                 new Food("milkFresh", february20, may20, 60, "0"));
         Set<Food> expectedWarehouse = Set.of(new Food("milkJustMade", march20, june20, 60, "0"));
         Set<Food> expectedTrash = Set.of(new Food("milkRotten", november19, february20, 60, "0"));
 
-        Set<Food> actualShop = control.shop.getPack();
-        Set<Food> actualWarehouse = control.warehouse.getPack();
-        Set<Food> actualTrash = control.trash.getPack();
+        Set<Food> actualShop = control.getShop().getPack();
+        Set<Food> actualWarehouse = control.getWarehouse().getPack();
+        Set<Food> actualTrash = control.getTrash().getPack();
         assertThat(actualShop, is(expectedShop));
         assertThat(actualWarehouse, is(expectedWarehouse));
         assertThat(actualTrash, is(expectedTrash));
+    }
+
+    @Test
+    public void whenCheckQualityPercentageMethod() {
+        Calendar january20 = Calendar.getInstance();
+        january20.set(2020, Calendar.JANUARY,15);
+        Calendar november19 = Calendar.getInstance();
+        november19.set(2019, Calendar.NOVEMBER, 15);
+        Calendar february20 = Calendar.getInstance();
+        february20.set(2020, Calendar.FEBRUARY, 15);
+        Calendar march20 = Calendar.getInstance();
+        march20.set(2020, Calendar.MARCH, 15);
+        Calendar april20 = Calendar.getInstance();
+        april20.set(2020, Calendar.APRIL, 15);
+        Calendar may20 = Calendar.getInstance();
+        may20.set(2020, Calendar.MAY, 15);
+        Calendar june20 = Calendar.getInstance();
+        june20.set(2020, Calendar.JUNE, 15);
+
+        Food milkFresh = new Food("milkFresh", february20, may20, 60, "0");
+        ControlQuality control = new ControlQuality();
+        int result = control.expiryPercentage(milkFresh);
+        int expected = 37;
+        assertThat(result, is(expected));
     }
 }
