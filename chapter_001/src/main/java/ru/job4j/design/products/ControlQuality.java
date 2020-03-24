@@ -41,23 +41,16 @@ public class ControlQuality {
         return trash;
     }
 
-    /**
-     * Calculates the percentage value of food's expiry date.
-     * @param food
-     * @return int number meaning percents.
-     */
-    public int expiryPercentage(Food food) {
-        int percent = -1;
-        if (food != null && !(getNow().getTimeInMillis() > food.getExpiryDate().getTimeInMillis())) {
-            percent = (int) (100 * (now.getTimeInMillis() - food.getCreateDate().getTimeInMillis()) /
-                    (food.getExpiryDate().getTimeInMillis() - food.getCreateDate().getTimeInMillis()));
-        }
-        return percent;
-    }
 
     public void allocate(Set<Food> foodPack) {
-        shop.allocate(foodPack, this);
-        warehouse.allocate(foodPack, this);
-        trash.allocate(foodPack, this);
+        for (Food food : foodPack) {
+            if (shop.accept(food)) {
+                shop.add(food);
+            } else if (warehouse.accept(food)) {
+                warehouse.add(food);
+            } else if (trash.accept(food)) {
+                trash.add(food);
+            }
+        }
     }
 }

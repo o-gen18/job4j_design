@@ -11,11 +11,17 @@ public class Warehouse implements Storage {
         return pack;
     }
 
-    public void allocate(Set<Food> foodPack, ControlQuality control) {
-        for (Food food : foodPack) {
-            if (control.expiryPercentage(food) < 25 && control.expiryPercentage(food) > 0) {
-                pack.add(food);
-            }
+    @Override
+    public boolean accept(Food food) {
+        boolean result = false;
+        if (food.getExpiryPercentage() < 25 && food.getExpiryPercentage() >= 0) {
+            result = true;
         }
+        return result;
+    }
+
+    @Override
+    public void add(Food food) {
+        pack.add(food);
     }
 }

@@ -11,14 +11,20 @@ public class Shop implements Storage {
     }
 
     @Override
-    public void allocate(Set<Food> foodPack, ControlQuality control) {
-        for (Food food : foodPack) {
-            if (control.expiryPercentage(food) >= 75) {
+    public boolean accept(Food food) {
+        boolean result = false;
+            if (food.getExpiryPercentage() >= 75) {
                 food.setDiscount("50%");
-                pack.add(food);
-            } else if (control.expiryPercentage(food) < 75 && control.expiryPercentage(food) >= 25) {
-                pack.add(food);
+                result = true;
+            } else if (food.getExpiryPercentage() < 75 && food.getExpiryPercentage() >= 25) {
+                result = true;
             }
+            return result;
         }
+
+
+    @Override
+    public void add(Food food) {
+        pack.add(food);
     }
 }
