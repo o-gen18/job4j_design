@@ -1,5 +1,4 @@
 package ru.job4j.design.parking;
 
-public interface Car {
-
+public class Truck implements Car {
 }
