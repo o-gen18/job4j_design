@@ -68,4 +68,48 @@ public class ControlQualityTest {
         int expected = 42;
         assertThat(result, is(expected));
     }
+
+    @Test
+    public void whenResortProducts() {
+        Calendar january20 = Calendar.getInstance();
+        january20.set(2020, Calendar.JANUARY,15);
+        Calendar november19 = Calendar.getInstance();
+        november19.set(2019, Calendar.NOVEMBER, 15);
+        Calendar february20 = Calendar.getInstance();
+        february20.set(2020, Calendar.FEBRUARY, 15);
+        Calendar march20 = Calendar.getInstance();
+        march20.set(2020, Calendar.MARCH, 15);
+        Calendar april20 = Calendar.getInstance();
+        april20.set(2020, Calendar.APRIL, 5);
+        Calendar may20 = Calendar.getInstance();
+        may20.set(2020, Calendar.MAY, 15);
+        Calendar june20 = Calendar.getInstance();
+        june20.set(2020, Calendar.JUNE, 15);
+
+        Set<Food> food = Set.of(new Food("milkRotten", november19, february20, 60, "0"),
+                new Food("milkOld", january20, april20, 60, "0"),
+                new Food("milkFresh", february20, may20, 60, "0"),
+                new Food("milkJustMade", march20, june20, 60, "0"));
+        ControlQuality control = new ControlQuality();
+        control.allocate(food);
+        Set<Food> expectedShop = Set.of(new Food("milkOld", january20, april20, 60, "50%"),
+                new Food("milkFresh", february20, may20, 60, "0"));
+        Set<Food> expectedWarehouse = Set.of(new Food("milkJustMade", march20, june20, 60, "0"));
+        Set<Food> expectedTrash = Set.of(new Food("milkRotten", november19, february20, 60, "0"));
+
+        Set<Food> actualShop = control.getShop().getPack();
+        Set<Food> actualWarehouse = control.getWarehouse().getPack();
+        Set<Food> actualTrash = control.getTrash().getPack();
+        assertThat(actualShop, is(expectedShop));
+        assertThat(actualWarehouse, is(expectedWarehouse));
+        assertThat(actualTrash, is(expectedTrash));
+
+        control.resort();
+        Set<Food> actualShop2 = control.getShop().getPack();
+        Set<Food> actualWarehouse2 = control.getWarehouse().getPack();
+        Set<Food> actualTrash2 = control.getTrash().getPack();
+        assertThat(actualShop2, is(expectedShop));
+        assertThat(actualWarehouse2, is(expectedWarehouse));
+        assertThat(actualTrash2, is(expectedTrash));
+    }
 }

@@ -2,6 +2,7 @@ package ru.job4j.design.products;
 
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import static java.util.Calendar.DAY_OF_MONTH;
@@ -52,5 +53,19 @@ public class ControlQuality {
                 trash.add(food);
             }
         }
+    }
+
+    public void resort() {
+        Set<Food> retaken = new HashSet<>();
+        Set<Storage> storages = Set.of(shop, warehouse, trash);
+        Iterator<Food> foodIterator;
+        for (Storage storage : storages) {
+            foodIterator = storage.getPack().iterator();
+            while (foodIterator.hasNext()) {
+                retaken.add(foodIterator.next());
+                foodIterator.remove();
+            }
+        }
+        allocate(retaken);
     }
 }
