@@ -65,7 +65,7 @@ public class ControlQualityTest {
         Food milkFresh = new Food("milkFresh", february20, may20, 60, "0");
         ControlQuality control = new ControlQuality();
         int result = milkFresh.getExpiryPercentage();
-        int expected = 42;
+        int expected = 44;
         assertThat(result, is(expected));
     }
 

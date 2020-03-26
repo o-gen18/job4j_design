@@ -14,9 +14,11 @@ public class ControlQuality {
      */
     private Calendar now = Calendar.getInstance();
 
-    private Shop shop = new Shop();
-    private Warehouse warehouse = new Warehouse();
-    private Trash trash = new Trash();
+    private Set<Storage> storages = Set.of(new Shop(), new Warehouse(), new Trash());
+
+//    private Shop shop = new Shop();
+//    private Warehouse warehouse = new Warehouse();
+//    private Trash trash = new Trash();
 
     /**
      * Getter and Setter of Calendar-now instance for testing;
@@ -31,33 +33,53 @@ public class ControlQuality {
     }
 
     public Shop getShop() {
-        return shop;
+        Shop searched = null;
+        for (Iterator<Storage> it = storages.iterator(); it.hasNext(); ) {
+            Storage shop = it.next();
+            if (shop.getClass().equals(Shop.class)){
+                searched = (Shop) shop;
+            }
+        }
+        return searched;
     }
 
     public Warehouse getWarehouse() {
-        return warehouse;
+        Warehouse searched = null;
+        for (Iterator<Storage> it = storages.iterator(); it.hasNext(); ) {
+            Storage warehouse = it.next();
+            if (warehouse.getClass().equals(Warehouse.class)){
+                searched = (Warehouse) warehouse;
+            }
+        }
+        return searched;
     }
 
     public Trash getTrash() {
-        return trash;
+        Trash searched = null;
+        for (Iterator<Storage> it = storages.iterator(); it.hasNext(); ) {
+            Storage trash = it.next();
+            if (trash.getClass().equals(Trash.class)){
+                searched = (Trash) trash;
+            }
+        }
+        return searched;
     }
 
 
     public void allocate(Set<Food> foodPack) {
         for (Food food : foodPack) {
-            if (shop.accept(food)) {
-                shop.add(food);
-            } else if (warehouse.accept(food)) {
-                warehouse.add(food);
-            } else if (trash.accept(food)) {
-                trash.add(food);
+            if (getShop().accept(food)) {
+                getShop().add(food);
+            } else if (getWarehouse().accept(food)) {
+                getWarehouse().add(food);
+            } else if (getTrash().accept(food)) {
+                getTrash().add(food);
             }
         }
     }
 
     public void resort() {
         Set<Food> retaken = new HashSet<>();
-        Set<Storage> storages = Set.of(shop, warehouse, trash);
         Iterator<Food> foodIterator;
         for (Storage storage : storages) {
             foodIterator = storage.getPack().iterator();
