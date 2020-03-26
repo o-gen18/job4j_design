@@ -68,11 +68,11 @@ public class ControlQuality {
 
     public void allocate(Set<Food> foodPack) {
         for (Food food : foodPack) {
-            if (getShop().accept(food)) {
+            if (getShop() != null && getShop().accept(food)) {
                 getShop().add(food);
-            } else if (getWarehouse().accept(food)) {
+            } else if (getWarehouse() != null && getWarehouse().accept(food)) {
                 getWarehouse().add(food);
-            } else if (getTrash().accept(food)) {
+            } else if (getTrash() != null && getTrash().accept(food)) {
                 getTrash().add(food);
             }
         }
