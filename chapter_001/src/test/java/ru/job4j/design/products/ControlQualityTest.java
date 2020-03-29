@@ -30,16 +30,19 @@ public class ControlQualityTest {
                 new Food("milkOld", january20, april20, 60, "0"),
                 new Food("milkFresh", february20, may20, 60, "0"),
                 new Food("milkJustMade", march20, june20, 60, "0"));
-        ControlQuality control = new ControlQuality();
+        Shop shop = new Shop();
+        Warehouse warehouse = new Warehouse();
+        Trash trash = new Trash();
+        ControlQuality control = new ControlQuality(shop, warehouse, trash);
         control.allocate(food);
         Set<Food> expectedShop = Set.of(new Food("milkOld", january20, april20, 60, "50%"),
                 new Food("milkFresh", february20, may20, 60, "0"));
         Set<Food> expectedWarehouse = Set.of(new Food("milkJustMade", march20, june20, 60, "0"));
         Set<Food> expectedTrash = Set.of(new Food("milkRotten", november19, february20, 60, "0"));
 
-        Set<Food> actualShop = control.getShop().getPack();
-        Set<Food> actualWarehouse = control.getWarehouse().getPack();
-        Set<Food> actualTrash = control.getTrash().getPack();
+        Set<Food> actualShop = shop.getPack();
+        Set<Food> actualWarehouse = warehouse.getPack();
+        Set<Food> actualTrash = trash.getPack();
         assertThat(actualShop, is(expectedShop));
         assertThat(actualWarehouse, is(expectedWarehouse));
         assertThat(actualTrash, is(expectedTrash));
@@ -65,7 +68,7 @@ public class ControlQualityTest {
         Food milkFresh = new Food("milkFresh", february20, may20, 60, "0");
         ControlQuality control = new ControlQuality();
         int result = milkFresh.getExpiryPercentage();
-        int expected = 44;
+        int expected = 47;
         assertThat(result, is(expected));
     }
 
@@ -90,24 +93,27 @@ public class ControlQualityTest {
                 new Food("milkOld", january20, april20, 60, "0"),
                 new Food("milkFresh", february20, may20, 60, "0"),
                 new Food("milkJustMade", march20, june20, 60, "0"));
-        ControlQuality control = new ControlQuality();
+        Shop shop = new Shop();
+        Warehouse warehouse = new Warehouse();
+        Trash trash = new Trash();
+        ControlQuality control = new ControlQuality(shop, warehouse, trash);
         control.allocate(food);
         Set<Food> expectedShop = Set.of(new Food("milkOld", january20, april20, 60, "50%"),
                 new Food("milkFresh", february20, may20, 60, "0"));
         Set<Food> expectedWarehouse = Set.of(new Food("milkJustMade", march20, june20, 60, "0"));
         Set<Food> expectedTrash = Set.of(new Food("milkRotten", november19, february20, 60, "0"));
 
-        Set<Food> actualShop = control.getShop().getPack();
-        Set<Food> actualWarehouse = control.getWarehouse().getPack();
-        Set<Food> actualTrash = control.getTrash().getPack();
+        Set<Food> actualShop = shop.getPack();
+        Set<Food> actualWarehouse = warehouse.getPack();
+        Set<Food> actualTrash = trash.getPack();
         assertThat(actualShop, is(expectedShop));
         assertThat(actualWarehouse, is(expectedWarehouse));
         assertThat(actualTrash, is(expectedTrash));
 
         control.resort();
-        Set<Food> actualShop2 = control.getShop().getPack();
-        Set<Food> actualWarehouse2 = control.getWarehouse().getPack();
-        Set<Food> actualTrash2 = control.getTrash().getPack();
+        Set<Food> actualShop2 = shop.getPack();
+        Set<Food> actualWarehouse2 = warehouse.getPack();
+        Set<Food> actualTrash2 = trash.getPack();
         assertThat(actualShop2, is(expectedShop));
         assertThat(actualWarehouse2, is(expectedWarehouse));
         assertThat(actualTrash2, is(expectedTrash));

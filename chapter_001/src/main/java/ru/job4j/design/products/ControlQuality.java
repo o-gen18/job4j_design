@@ -14,11 +14,13 @@ public class ControlQuality {
      */
     private Calendar now = Calendar.getInstance();
 
-    private Set<Storage> storages = Set.of(new Shop(), new Warehouse(), new Trash());
+    private Set<Storage> storages = new HashSet<>();
 
-//    private Shop shop = new Shop();
-//    private Warehouse warehouse = new Warehouse();
-//    private Trash trash = new Trash();
+    public ControlQuality(Storage...storages) {
+        for (Storage storage : storages) {
+            this.storages.add(storage);
+        }
+    }
 
     /**
      * Getter and Setter of Calendar-now instance for testing;
@@ -32,48 +34,13 @@ public class ControlQuality {
         this.now = calendar;
     }
 
-    public Shop getShop() {
-        Shop searched = null;
-        for (Iterator<Storage> it = storages.iterator(); it.hasNext(); ) {
-            Storage shop = it.next();
-            if (shop.getClass().equals(Shop.class)){
-                searched = (Shop) shop;
-            }
-        }
-        return searched;
-    }
-
-    public Warehouse getWarehouse() {
-        Warehouse searched = null;
-        for (Iterator<Storage> it = storages.iterator(); it.hasNext(); ) {
-            Storage warehouse = it.next();
-            if (warehouse.getClass().equals(Warehouse.class)){
-                searched = (Warehouse) warehouse;
-            }
-        }
-        return searched;
-    }
-
-    public Trash getTrash() {
-        Trash searched = null;
-        for (Iterator<Storage> it = storages.iterator(); it.hasNext(); ) {
-            Storage trash = it.next();
-            if (trash.getClass().equals(Trash.class)){
-                searched = (Trash) trash;
-            }
-        }
-        return searched;
-    }
-
-
     public void allocate(Set<Food> foodPack) {
         for (Food food : foodPack) {
-            if (getShop() != null && getShop().accept(food)) {
-                getShop().add(food);
-            } else if (getWarehouse() != null && getWarehouse().accept(food)) {
-                getWarehouse().add(food);
-            } else if (getTrash() != null && getTrash().accept(food)) {
-                getTrash().add(food);
+            for (Storage storage : storages) {
+                if (storage.accept(food)) {
+                    storage.add(food);
+                    break;
+                }
             }
         }
     }
