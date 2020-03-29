@@ -18,4 +18,15 @@ public class ParkingServiceTest {
         Parking expected = new CityParking(7, 2, 3);
         assertThat(parking, is(expected));
     }
+
+    @Test
+    public void when4TrucksThenTake2CarSpacesFree() {
+        Set<Car> cars = Set.of();
+        Set<Car> trucks = Set.of(new Truck(), new Truck(), new Truck(), new Truck());
+        Parking parking = new CityParking(10, 2, 2);
+        ParkingService service = new RegularParkingService(cars, trucks, parking);
+        service.allocate();
+        Parking expected = new CityParking(6, 0, 2);
+        assertThat(parking, is(expected));
+    }
 }
