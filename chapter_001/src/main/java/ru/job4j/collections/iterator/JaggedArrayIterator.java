@@ -1,6 +1,7 @@
 package ru.job4j.collections.iterator;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class JaggedArrayIterator implements Iterator {
     private final int[][] matrix;
@@ -17,7 +18,10 @@ public class JaggedArrayIterator implements Iterator {
     }
 
     @Override
-    public Object next() {
+    public Object next() throws NoSuchElementException {
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
         if (index2 == matrix[index1].length) {
             index2 = 0;
             index1++;
