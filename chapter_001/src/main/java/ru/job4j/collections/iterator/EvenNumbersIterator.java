@@ -17,6 +17,7 @@ public class EvenNumbersIterator implements Iterator {
         for (int i = index; i < array.length; i++) {
             if (array[i] % 2 == 0) {
                 result = true;
+                index = i;
                 break;
             }
         }
@@ -24,12 +25,9 @@ public class EvenNumbersIterator implements Iterator {
     }
 
     @Override
-    public Object next() {
-        while (!(array[index] % 2 == 0)) {
-            index++;
-            if (index >= array.length) {
-                throw new NoSuchElementException("There are no even numbers in the array");
-            }
+    public Object next() throws NoSuchElementException {
+        if (!hasNext()) {
+            throw new NoSuchElementException();
         }
         return array[index++];
     }
