@@ -5,8 +5,8 @@ import java.util.NoSuchElementException;
 
 public class JaggedArrayIterator implements Iterator {
     private final int[][] matrix;
-    private int index1 = 0;
-    private int index2 = 0;
+    private int rowIndex = 0;
+    private int colIndex = 0;
 
     public JaggedArrayIterator(int[][] matrix) {
         this.matrix = matrix;
@@ -14,7 +14,7 @@ public class JaggedArrayIterator implements Iterator {
 
     @Override
     public boolean hasNext() {
-        return matrix[index1].length - 1 > index2 || matrix.length - 1 > index1;
+        return matrix[rowIndex].length - 1 > colIndex || matrix.length - 1 > rowIndex;
     }
 
     @Override
@@ -22,10 +22,10 @@ public class JaggedArrayIterator implements Iterator {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        if (index2 == matrix[index1].length) {
-            index2 = 0;
-            index1++;
+        if (colIndex == matrix[rowIndex].length) {
+            colIndex = 0;
+            rowIndex++;
         }
-        return matrix[index1][index2++];
+        return matrix[rowIndex][colIndex++];
     }
 }
