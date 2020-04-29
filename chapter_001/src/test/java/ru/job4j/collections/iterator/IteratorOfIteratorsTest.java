@@ -1,12 +1,10 @@
 package ru.job4j.collections.iterator;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import ru.job4j.collections.iterator.IteratorOfIterators;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -96,5 +94,16 @@ import static org.hamcrest.Matchers.is;
         assertThat(it.next(), is(2));
         assertThat(it.next(), is(3));
         it.next();
+    }
+
+    @Test
+    public void whenNeedSkipEmptyIterators() {
+        Iterator<Integer> it1 = Collections.emptyIterator();
+        Iterator<Integer> it2 = Collections.emptyIterator();
+        Iterator<Integer> it3 = Arrays.asList(1).iterator();
+        Iterator<Iterator<Integer>> its = Arrays.asList(it1, it2, it3).iterator();
+        IteratorOfIterators iteratorOfIterators = new IteratorOfIterators();
+        it = iteratorOfIterators.convert(its);
+        assertThat(it.next(), is(1));
     }
 }
