@@ -36,11 +36,13 @@ public class SimpleList<E> implements Iterable<E> {
     public void add(E value) {
         final Node<E> l = last;
         final Node<E> newNode = new Node<E>(l, value, null);
-        last = newNode;
-        if (l == null)
+        if (l == null) {
             first = newNode;
-        else
+        }
+        else {
             l.next = newNode;
+        }
+        last = newNode;
         size++;
         modCount++;
     }
