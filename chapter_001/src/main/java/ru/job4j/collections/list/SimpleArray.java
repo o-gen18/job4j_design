@@ -45,21 +45,12 @@ public class SimpleArray<T> implements Iterable<T> {
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             private T[] array = (T[]) container;
-            private int index = 0;
+            private int indexItr = 0;
             private int expectedModCount = modCount;
 
             @Override
             public boolean hasNext() {
-                boolean result = false;
-                for (int i = index; i < array.length; i++) {
-                    if (array[i] != null && array.length > index) {
-                        result = true;
-                        break;
-                    } else {
-                        index++;
-                    }
-                }
-                return result;
+                return index > indexItr;
             }
 
             @Override
@@ -70,7 +61,7 @@ public class SimpleArray<T> implements Iterable<T> {
                 if (modCount != expectedModCount) {
                     throw new ConcurrentModificationException();
                 }
-                return (T) array[index++];
+                return (T) array[indexItr++];
             }
         };
     }
