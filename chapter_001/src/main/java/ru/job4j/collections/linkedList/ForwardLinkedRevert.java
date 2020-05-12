@@ -5,25 +5,21 @@ import java.util.NoSuchElementException;
 
 public class ForwardLinkedRevert<T> implements Iterable<T> {
     private Node<T> head;
-    private Node<T> last;
 
     private static class Node<T> {
         T value;
-        Node<T> previous;
         Node<T> next;
 
-        public Node(Node<T> previous, T value, Node<T> next) {
-            this.previous = previous;
+        public Node(T value, Node<T> next) {
             this.value = value;
             this.next = next;
         }
     }
 
     public void add(T value) {
-        Node<T> node = new Node<T>(last, value, null);
+        Node<T> node = new Node<T>(value, null);
         if (head == null) {
             head = node;
-            last = node;
             return;
         }
         Node<T> tail = head;
@@ -31,13 +27,12 @@ public class ForwardLinkedRevert<T> implements Iterable<T> {
             tail = tail.next;
         }
         tail.next = node;
-        last = node;
     }
 
     public void revert() {
         Node<T> current = head;
-        Node<T> next;
-        Node<T> previous = current.previous;
+        Node<T> next = null;
+        Node<T> previous = null;
         while (current != null) {
             next = current.next;
             current.next = previous;
