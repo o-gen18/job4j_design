@@ -7,13 +7,23 @@ import java.util.Iterator;
 public class SimpleSet<E> implements Iterable<E> {
     private final SimpleArray<E> set = new SimpleArray<>();
 
-    public void add(E e) {
+    public boolean contains(E value) {
+        boolean result = false;
         for (E element : set) {
-            if (element.equals(e)) {
-                return;
+            if (element.equals(value)) {
+                result = true;
+                break;
             }
         }
-        set.add(e);
+        return result;
+    }
+
+    public void add(E e) {
+        if (contains(e)) {
+            return;
+        } else {
+            set.add(e);
+        }
     }
 
     @Override
