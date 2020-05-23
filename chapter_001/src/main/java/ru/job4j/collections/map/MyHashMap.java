@@ -50,7 +50,7 @@ public class MyHashMap<K, V> implements Iterable<V> {
     }
 
     private void enlargeArray() {
-        Entry<K, V>[] newArray = (Entry<K, V>[]) new Entry<?, ?>[latestCapacity << 1];
+        Entry<K, V>[] newArray = new Entry[latestCapacity << 1];
         for (int i = array.length - 1; i >= 0; i--) {
             if (array[i] == null) {
                 continue;
@@ -68,6 +68,18 @@ public class MyHashMap<K, V> implements Iterable<V> {
         array = newArray;
         latestCapacity = array.length;
     }
+//    private void enlargeArray() {
+//        int prevCapacity = latestCapacity;
+//        latestCapacity = latestCapacity << 1;
+//        Entry<K, V>[] newArray = new Entry[latestCapacity];
+//        for (int i = 0; i < prevCapacity; i++) {
+//            if (array[i] != null) {
+//                int h = rehash(array[i].key, newArray);
+//                newArray[h] = new Entry<>(h, array[i].key, array[i].value, null);
+//            }
+//        }
+//        array = newArray;
+//    }
 
     public MyHashMap() {
         array = (Entry<K, V>[]) new Entry<?, ?>[10];
@@ -105,22 +117,33 @@ public class MyHashMap<K, V> implements Iterable<V> {
     }
 
     public boolean delete(K key) {
+        boolean result = false;
         int hash = Objects.hash(key);
         int position = (hash & 0x7FFFFFFF) % array.length;
         if (array[position] == null) {
             return false;
         } else {
-            for (Entry<K, V> pair = array[position]; pair != null;) {
-                if (pair.getKey().equals(key)) {
-                    pair = null;
-                    break;
+            Entry<K, V> previous = null;
+            Entry<K, V> head = array[position];
+            if (head.key.equals(key)) {
+                array[position] = array[position].next;
+                modCount++;
+                result = true;
+            } else {
+                previous = head;
+                head = head.next;
+                while (head != null && !head.key.equals(key)) {
+                    previous = head;
+                    head = head.next;
                 }
-                pair = pair.next;
+                if (head != null) {
+                    previous.next = head.next;
+                    modCount++;
+                    result = true;
+                }
             }
-            index--;
-            modCount++;
-            return true;
         }
+        return result;
     }
 
     @Override
