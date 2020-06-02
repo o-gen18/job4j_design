@@ -8,11 +8,9 @@ public class LogFilter {
     public static List<String> filter(String file) {
         List<String> result = new ArrayList<String>();
         try (BufferedReader in = new BufferedReader(new FileReader(file))) {
-            List<String> lines = new ArrayList<String>();
             in.lines().forEach(line -> {
-                if (line.contains("404")) lines.add(line + System.lineSeparator());
+                if (line.contains("404")) result.add(line);
             });
-            result.addAll(lines);
         } catch (Exception e) {
             e.printStackTrace();
         }
