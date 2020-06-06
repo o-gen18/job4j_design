@@ -18,8 +18,8 @@ public class Config {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             read.lines().forEach(line -> {
                         if (!line.isEmpty()) {
-                            if (line.contains("/")) {
-                                line = line.substring(0, line.indexOf("/"));
+                            if (line.contains("#")) {
+                                line = line.substring(0, line.indexOf("#"));
                             }
                             if (!line.isEmpty()) {
                                 values.put(line.substring(0, line.indexOf("=")), line.substring(line.indexOf("=")+1));
@@ -31,17 +31,6 @@ public class Config {
         }
     }
 
-//    public void load() { //пытался сделать так, но постоянно был IndexOfBoundsException
-//        StringJoiner intoValues = new StringJoiner(System.lineSeparator());
-//        try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-//            read.lines().map(line -> line.replace(" ", ""))
-//                        .map(line -> line.substring(0, line.indexOf("/")))
-//                                .forEach(line -> values.put(line.substring(0, line.indexOf("=")), line.substring(line.indexOf("=")+1, line.length()-1)));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     public String value(String key) {
         return values.get(key);
     }
@@ -49,7 +38,8 @@ public class Config {
     @Override
     public String toString() {
         StringJoiner out = new StringJoiner(System.lineSeparator());
-        try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
+        try (BufferedReader read = new BufferedReader(
+                new FileReader(this.path))) {
             read.lines().forEach(out::add);
         } catch (Exception e) {
             e.printStackTrace();
