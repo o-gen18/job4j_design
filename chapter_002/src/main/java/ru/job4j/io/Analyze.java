@@ -31,7 +31,7 @@ public class Analyze {
 
     /*
     * Returns a String representation of the result produced by method "unavailable"
-    * to check it in the test class.
+    * to check it in the test class. (Add some words to commit again)
      */
 
     public String readResult(String path) {
