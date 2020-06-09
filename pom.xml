@@ -17,6 +17,7 @@
     </properties>
     <modules>
         <module>chapter_001</module>
+        <module>chapter_002</module>
     </modules>
     <dependencies>
         <dependency>
@@ -37,6 +38,13 @@
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
             <version>1.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <!-- use 2.9.1 for Java 7 projects -->
+            <version>3.16.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
