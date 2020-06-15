@@ -4,6 +4,10 @@ public class ArgZip {
 
     private final String[] args;
 
+    public ArgZip(String[] args) {
+        this.args = args;
+    }
+
     private boolean valid() {
         int counter = 0;
         for (String arg : args) {
@@ -25,10 +29,6 @@ public class ArgZip {
             }
         }
         return result;
-    }
-
-    public ArgZip(String[] args) {
-        this.args = args;
     }
 
     public String directory() {

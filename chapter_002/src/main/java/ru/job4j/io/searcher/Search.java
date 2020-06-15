@@ -6,9 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-
 public class Search {
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         if (args.length != 2) {
             throw new IllegalArgumentException("Root folder is null or file type in not mentioned");
         }

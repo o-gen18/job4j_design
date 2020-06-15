@@ -11,15 +11,16 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-
-
 public class Zip {
 
     public void packFiles(List<File> sources, File target) {
-        try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
+        try (ZipOutputStream zip = new ZipOutputStream(
+                new BufferedOutputStream(
+                    new FileOutputStream(target)))) {
             for (File file : sources) {
                 zip.putNextEntry(new ZipEntry(file.getPath()));
-                try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(file))) {
+                try (BufferedInputStream out = new BufferedInputStream(
+                        new FileInputStream(file))) {
                     zip.write(out.readAllBytes());
                 }
             }
