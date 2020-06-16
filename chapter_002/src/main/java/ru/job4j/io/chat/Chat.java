@@ -4,12 +4,22 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class Chat {
+    private final String stop = "стоп";
+
+    private final String proceed = "продолжить";
+
+    private final String finish = "закончить";
+
     public static void main(String[] args) {
         if (args.length != 2) {
             throw new IllegalArgumentException(
                     "Введите аргументы для метода main():"
                             + "1-путь к файлу чтения, 2-путь к файлу записи");
         }
+        new Chat().run(args);
+    }
+
+    public void run(String[] args) {
         Input input = new ConsoleInput();
         Output output = new Answer(args[0]);
         Saver log = new Logger(args[1]);
@@ -20,10 +30,10 @@ public class Chat {
             do {
                 phrase = input.takeInput(reader);
                 log.collect(phrase);
-                if (phrase.equals("стоп") || phrase.equals("закончить")) {
+                if (phrase.equals(stop) || phrase.equals(finish)) {
                     output.deactivate();
                 }
-                if (phrase.equals("продолжить")) {
+                if (phrase.equals(proceed)) {
                     output.activate();
                 }
                 if (output.isActivated()) {
