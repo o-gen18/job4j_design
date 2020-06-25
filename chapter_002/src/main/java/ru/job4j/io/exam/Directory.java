@@ -1,8 +1,5 @@
 package ru.job4j.io.exam;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 public class Directory {
 
     public static void main(String[] args) {
@@ -29,23 +26,28 @@ public class Directory {
 
     static class Shell {
 
-        private Path root = Paths.get("/");
+        private StringBuilder root = new StringBuilder("/");
 
         Shell cd(final String path) {
             if (path.equals("..")) {
-                root = root.getParent();
+                int lastSlash = root.lastIndexOf("/");
+                root.delete(lastSlash, root.length());
             } else if (path.startsWith("//")) {
                 String normalized = path.replaceAll("/", "");
                 String newRoot = "/".concat(normalized);
-                root = Paths.get(newRoot);
-            } else if (!path.startsWith(".") && !path.endsWith(".")) {
-                root = root.resolve(path);
+                root.delete(0, root.length());
+                root.append(newRoot);
+            } else if (!path.startsWith(".") && !path.endsWith(".") && !path.startsWith("/")) {
+                if (root.charAt(root.length() - 1) != '/') {
+                    root.append("/");
+                }
+                root.append(path);
             }
             return this;
         }
 
         public String path() {
-            return root.toString().replaceAll("\\\\", "/");
+            return root.toString();
         }
     }
 }
