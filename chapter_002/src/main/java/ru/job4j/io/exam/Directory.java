@@ -1,5 +1,7 @@
 package ru.job4j.io.exam;
 
+import java.util.Stack;
+
 public class Directory {
 
     public static void main(String[] args) {
@@ -26,37 +28,39 @@ public class Directory {
 
     static class Shell {
 
-        //private StringBuilder root = new StringBuilder("/");
-        private String root = "/";
+        private Stack<String> root = new Stack<>();
 
         public Shell() {
+            root.push("/");
         }
 
-        public Shell(String path) {
-            this.root = path;
-        }
-
-        Shell cd(final String path) {
+        public Shell cd(final String path) {
             if (path.equals("..")) {
-                int lastSlash = root.lastIndexOf("/");
-                return new Shell(root.substring(0, lastSlash));
+                root.pop();
+                root.pop();
+                return this;
             } else if (path.startsWith("//")) {
                 String normalized = path.replaceAll("/", "");
-                return new Shell("/".concat(normalized));
+                root.removeAllElements();
+                root.push("/");
+                root.push(normalized);
+                return this;
             } else if (!path.startsWith(".") && !path.endsWith(".") && !path.startsWith("/")) {
-                String result;
-                if (root.endsWith("/")) {
-                    result = root.concat(path);
-                } else {
-                    result = root.concat("/").concat(path);
+                if (!root.peek().equals("/")) {
+                    root.push("/");
                 }
-                return new Shell(result);
+                root.push(path);
+                return this;
             }
             return this;
         }
 
         public String path() {
-            return root;
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < root.size(); i++) {
+                result.append(root.get(i));
+            }
+            return result.toString();
         }
     }
 }
