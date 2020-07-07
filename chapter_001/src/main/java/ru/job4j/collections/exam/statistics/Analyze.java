@@ -1,8 +1,9 @@
 package ru.job4j.collections.exam.statistics;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Analyze {
@@ -19,13 +20,14 @@ public class Analyze {
             return new Info(0, 0, previous.size());
         }
 
-        Set<Integer> idsPrev = previous.stream().map(User::getId).collect(Collectors.toSet());
+        Map<Integer, User> idsPrev = previous.stream().collect(
+                Collectors.toMap(User::getId, Function.identity()));
 
         for (User user : current) {
-            if (!idsPrev.contains(user.getId())) {
+            if (!idsPrev.containsKey(user.getId())) {
                 added++;
             } else {
-                User temp = previous.get(previous.indexOf(user));
+                User temp = idsPrev.get(user.getId());
                 if (!user.getName().equals(temp.getName())) {
                     changed++;
                 }
@@ -69,12 +71,13 @@ public class Analyze {
                 return false;
             }
             User user = (User) o;
-            return Objects.equals(id, user.id);
+            return Objects.equals(id, user.id)
+                    && Objects.equals(name, user.name);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(id);
+            return Objects.hash(id, name);
         }
     }
 
