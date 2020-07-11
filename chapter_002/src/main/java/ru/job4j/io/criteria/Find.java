@@ -1,11 +1,10 @@
 package ru.job4j.io.criteria;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 public class Find implements Searcher {
 
@@ -14,8 +13,11 @@ public class Find implements Searcher {
         Predicate<Path> condition = null;
         switch (mode) {
             case "-m":
-                String ending = name.replace("-n=*", "");
-                condition = path -> path.toString().endsWith(ending);
+                String mask = name.replace("-n=", "");
+                String prefix = mask.startsWith("*") ? "*" : "";
+                FileSystem fs = FileSystems.getDefault();
+                PathMatcher matcher = fs.getPathMatcher("glob:" +  prefix + mask);
+                condition = matcher::matches;
                 break;
             case "-f":
                 String full = name.replace("-n=", "");
@@ -23,7 +25,8 @@ public class Find implements Searcher {
                 break;
             case "-r":
                 String regex = name.replace("-n=", "");
-                condition = path -> path.toString().matches(regex);
+                Pattern p = Pattern.compile(regex);
+                condition = path -> p.matcher(path.toString()).matches();
                 break;
             default:
                 System.out.println("Введены неверные аргументы! Введите заново, и перезапустите.");
