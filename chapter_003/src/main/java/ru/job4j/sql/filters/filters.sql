@@ -7,7 +7,9 @@ select * from product as p inner join type as t on p.type_id=t.id where t.name='
 select * from product where product.name like '%Мороженое%';
 
 --Написать запрос, который выводит все продукты, срок годности которых заканчивается в следующем месяце.
-select * from product where product.expired_date between '2020-08-01 00:00:00' and '2020-08-31 23:59:59';
+--select * from product where product.expired_date between '2020-08-01 00:00:00' and '2020-08-31 23:59:59';(частный случай)
+select * from product where product.expired_date between (SELECT date_trunc('month', current_timestamp + interval '1 month'))
+ and (select date_trunc('month', current_timestamp + interval '2 month'));
 
 --Написать запрос, который выводит самый дорогой продукт.
 select * from product where product.price = (select max(price) from product);
