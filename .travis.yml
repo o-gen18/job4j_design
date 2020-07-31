@@ -1,13 +1,14 @@
 # используем язык java. Travis CI поддерживает другие языки тоже.
 language: java
+
 jdk:
-  - openjdk13
+- openjdk13
 
 services:
-  -postgresql
+- postgresql
 
 before_install:
--psql -c 'create database tracker;' -U postgres
+- psql -c 'create database tracker;' -U postgres
 
 cache:
   directories:
@@ -28,3 +29,7 @@ notifications:
       oggen18@gmail.com
     on_success: never # default: change
     on_failure: always # default: always
+
+env:
+    global:
+      - CODECOV_TOKEN="9f5bc67f-089b-4662-829b-8ac6f0101957"
