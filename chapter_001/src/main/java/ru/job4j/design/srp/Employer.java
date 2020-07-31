@@ -50,8 +50,12 @@ public class Employer {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Employer employer = (Employer) o;
         return Objects.equals(name, employer.name);
     }

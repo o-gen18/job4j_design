@@ -13,7 +13,7 @@ public class ConfigTest {
         config.load();
         assertThat(config.value("name"), is("Petr Arsentev"));
     }
-    
+
     @Test
     public void whenPairWithCommentsAndWithWhitespaces() {
         String path = "./data/pair_with_comments.properties";

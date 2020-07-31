@@ -1,6 +1,7 @@
 package ru.job4j.design.composite;
 
 import org.junit.Test;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -28,16 +29,16 @@ public class MenuTest {
         par2.add(subPar21);
         subPar21.add(subSubPar221);
         String result = par1.toString() + par2.toString();
-        String expected = "Задача 1." + System.lineSeparator() +
-                "--- Задача 1.1" + System.lineSeparator() +
-                "------ Задача 1.1.1" + System.lineSeparator() +
-                "------ Задача 1.1.2" + System.lineSeparator() +
-                "--- Задача 1.2" + System.lineSeparator() +
-                "------ Задача 1.2.1" + System.lineSeparator() +
-                "------ Задача 1.2.2" + System.lineSeparator() +
-                "Задача 2." + System.lineSeparator() +
-                "--- Задача 2.1" + System.lineSeparator() +
-                "------ Задача 2.1.1" + System.lineSeparator();
+        String expected = "Задача 1." + System.lineSeparator()
+                + "--- Задача 1.1" + System.lineSeparator()
+                + "------ Задача 1.1.1" + System.lineSeparator()
+                + "------ Задача 1.1.2" + System.lineSeparator()
+                + "--- Задача 1.2" + System.lineSeparator()
+                + "------ Задача 1.2.1" + System.lineSeparator()
+                + "------ Задача 1.2.2" + System.lineSeparator()
+                + "Задача 2." + System.lineSeparator()
+                + "--- Задача 2.1" + System.lineSeparator()
+                + "------ Задача 2.1.1" + System.lineSeparator();
         assertThat(result, is(expected));
     }
 }

@@ -9,7 +9,8 @@ public class Exit implements UserChoice {
     }
 
     @Override
-    public boolean execute(double first, CalcInput input, Calculator calculator, Consumer<String> output) {
+    public boolean execute(double first, CalcInput input,
+                           Calculator calculator, Consumer<String> output) {
         return false;
     }
 }

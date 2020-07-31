@@ -17,15 +17,16 @@ public class Config {
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             read.lines().forEach(line -> {
-                        if (!line.isEmpty()) {
-                            if (line.contains("#")) {
-                                line = line.substring(0, line.indexOf("#"));
-                            }
-                            if (!line.isEmpty()) {
-                                values.put(line.substring(0, line.indexOf("=")), line.substring(line.indexOf("=")+1));
-                            }
-                        }
-                    });
+                if (!line.isEmpty()) {
+                    if (line.contains("#")) {
+                        line = line.substring(0, line.indexOf("#"));
+                    }
+                    if (!line.isEmpty()) {
+                        values.put(line.substring(0, line.indexOf("=")),
+                                line.substring(line.indexOf("=") + 1));
+                    }
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }

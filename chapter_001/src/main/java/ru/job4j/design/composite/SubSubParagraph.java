@@ -9,6 +9,7 @@ public class SubSubParagraph implements MenuComponent {
     public SubSubParagraph(String name) {
         this.name = name;
     }
+
     @Override
     public void add(MenuComponent paragraph) {
     }

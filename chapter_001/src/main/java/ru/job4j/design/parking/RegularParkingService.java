@@ -17,8 +17,8 @@ public class RegularParkingService implements ParkingService {
 
         if (freeSmallSpace <= 0) {
             parking.setSmallCars(0);
-        } else if (freeSmallSpace/parking.getN() >= extraTrucks) {
-            parking.setSmallCars(freeSmallSpace - parking.getN()*extraTrucks);
+        } else if (freeSmallSpace / parking.getN() >= extraTrucks) {
+            parking.setSmallCars(freeSmallSpace - parking.getN() * extraTrucks);
         } else {
             parking.setSmallCars(freeSmallSpace);
         }

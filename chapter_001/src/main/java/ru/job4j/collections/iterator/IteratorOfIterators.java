@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 public class IteratorOfIterators {
     public Iterator<Integer> convert(Iterator<Iterator<Integer>> it) {
         return new Iterator<Integer>() {
-            private Iterator <Integer> temp = Collections.emptyIterator();
+            private Iterator<Integer> temp = Collections.emptyIterator();
 
             private void setNext() {
                 while (!temp.hasNext() && it.hasNext()) {
@@ -25,12 +25,12 @@ public class IteratorOfIterators {
 
             @Override
             public Integer next() {
-                    if (!hasNext()) {
-                        throw new NoSuchElementException();
-                    }
-                    return temp.next();
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
                 }
-            };
-        }
+                return temp.next();
+            }
+        };
     }
+}
 

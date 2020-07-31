@@ -9,7 +9,8 @@ public class ClearMemory implements UserChoice {
     }
 
     @Override
-    public boolean execute(double first, CalcInput input, Calculator calculator, Consumer<String> output) {
+    public boolean execute(double first, CalcInput input,
+                           Calculator calculator, Consumer<String> output) {
         CalcStartUI.Buffer.setRunBuffer(false);
         return true;
     }

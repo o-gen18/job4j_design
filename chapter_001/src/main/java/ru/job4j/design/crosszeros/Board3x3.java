@@ -37,7 +37,8 @@ public class Board3x3 implements Board {
     @Override
     public void makeStep(int row, int cell, Symbol symbol) {
         if (repeatingSymbol(symbol) || !this.isEmpty(row, cell, board)) {
-            throw new IllegalStateException("Ошибка! Занята клетка или попытка поставить символ противника!");
+            throw new IllegalStateException(
+                    "Ошибка! Занята клетка или попытка поставить символ противника!");
         }
         board[row][cell] = symbol.get();
         lastSymbol = symbol;
@@ -55,7 +56,7 @@ public class Board3x3 implements Board {
         int diagonalX1 = 0, diagonalX2 = 0, diagonalO1 = 0, diagonalO2 = 0;
         for (int row = 0; row < board.length; row++) {
             int countX = 0, countO = 0, countX2 = 0, countO2 = 0;
-            for (int cell= 0; cell < board.length; cell++) {
+            for (int cell = 0; cell < board.length; cell++) {
                 if (board[row][cell] == symbol.get()) {
                     if (symbol.get() == x.get()) {
                         countX++;

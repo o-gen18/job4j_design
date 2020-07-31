@@ -1,24 +1,33 @@
 package ru.job4j.collections.exam;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class FreezeStr {
     public static boolean eq(String left, String right) {
         boolean result = false;
         if (left.length() == right.length()) {
-            List<Character> list = new ArrayList<>();
-            List<Character> list2 = new ArrayList<>();
+            Map<Character, Character> map1 = new HashMap<>();
+            Map<Character, Character> map2 = new HashMap<>();
+
+            char[] doubledLetters1 = new char[left.length()];
+            int index = 0;
             for (char c : left.toCharArray()) {
-                list.add(c);
+                if (map1.containsKey(c)) {
+                    doubledLetters1[index++] = c;
+                }
+                map1.put(c, c);
             }
+
+            char[] doubledLetters2 = new char[right.length()];
+            int index2 = 0;
             for (char c : right.toCharArray()) {
-                list2.add(c);
+                map1.put(c, c);
+                if (map2.containsKey(c)) {
+                    doubledLetters2[index2++] = c;
+                }
+                map2.put(c, c);
             }
-            Collections.sort(list);
-            Collections.sort(list2);
-            if (list.equals(list2)) {
+            if (map1.equals(map2) && Arrays.equals(doubledLetters1, doubledLetters2)) {
                 result = true;
             }
         }

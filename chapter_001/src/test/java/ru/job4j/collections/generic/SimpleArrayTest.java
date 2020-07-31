@@ -1,9 +1,9 @@
 package ru.job4j.collections.generic;
 
 import org.junit.Test;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-
 
 public class SimpleArrayTest {
     @Test
@@ -59,7 +59,8 @@ public class SimpleArrayTest {
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void whenGetElementOutOfIndexBoundsShouldThrowIndexOutOfBoundsException() throws Exception {
+    public void whenGetElementOutOfIndexBoundsShouldThrowIndexOutOfBoundsException()
+            throws Exception {
         SimpleArray array = new SimpleArray(2);
         String first = "Hello";
         int second = 2;

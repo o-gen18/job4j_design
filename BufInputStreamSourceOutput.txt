@@ -1,0 +1,2 @@
+this is a source file for the training class
+called BufInputStream

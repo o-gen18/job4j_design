@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 
 public class CalcStartUI {
-    static class Buffer{
+    static class Buffer {
         /**
          * Static field used to indicate if the previous operations can be used next.
          */
@@ -20,7 +20,9 @@ public class CalcStartUI {
             buffer = newBuffer;
         }
 
-        public static double getBuffer() { return buffer; }
+        public static double getBuffer() {
+            return buffer;
+        }
 
         public static void setRunBuffer(boolean run) {
             runBuffer = run;
@@ -46,7 +48,8 @@ public class CalcStartUI {
         new CalcStartUI().init(input, calculator, actions, System.out::println);
     }
 
-    public void init(CalcInput input, Calculator calculator, ArrayList<UserChoice> actions, Consumer<String> output) {
+    public void init(CalcInput input, Calculator calculator,
+                     ArrayList<UserChoice> actions, Consumer<String> output) {
         boolean runCalc = true;
         while (runCalc) {
             Buffer.setBuffer(input.askDouble("Введите число: "));
@@ -56,7 +59,9 @@ public class CalcStartUI {
                 int choice = input.askChoice("", actions.size());
                 UserChoice selected = actions.get(choice);
                 runCalc = selected.execute(Buffer.getBuffer(), input, calculator, output);
-                if(!runCalc) break;
+                if (!runCalc) {
+                    break;
+                }
             }
         }
     }

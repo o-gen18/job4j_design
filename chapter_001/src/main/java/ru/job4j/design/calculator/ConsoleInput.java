@@ -11,6 +11,7 @@ public class ConsoleInput implements CalcInput {
 
     /**
      * Returns input data straight after printing the question asked.
+     *
      * @param question
      * @return the input.
      */
@@ -22,6 +23,7 @@ public class ConsoleInput implements CalcInput {
 
     /**
      * Returns Double-type representation of the input taken from the previous method.
+     *
      * @param question
      * @return integer value.
      */
@@ -31,14 +33,16 @@ public class ConsoleInput implements CalcInput {
 
     /**
      * Asks for position of certain operation from provided list.
+     *
      * @param select offers to the user to select anything from menu.
-     * @param max takes number of all operations from the array.
+     * @param max    takes number of all operations from the array.
      * @return int that stands for index of certain operation in a list.
      */
     public int askChoice(String select, int max) {
         int chosen = (int) askDouble(select);
-        if (!(chosen >=0 && chosen < max)) {
-            throw new IllegalStateException(String.format("Out of bounds: %s > [0, %s]", chosen, max));
+        if (!(chosen >= 0 && chosen < max)) {
+            throw new IllegalStateException(String.format(
+                    "Out of bounds: %s > [0, %s]", chosen, max));
         }
         return chosen;
     }

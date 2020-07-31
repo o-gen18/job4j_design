@@ -3,7 +3,8 @@ package ru.job4j.design.srp;
 public class DocXml implements DocFormat {
     @Override
     public StringBuilder formatHead(String head) {
-        StringBuilder changed = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?><document><name>");
+        StringBuilder changed = new StringBuilder(
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><document><name>");
         changed.append(head);
         return changed.append("</name>");
     }

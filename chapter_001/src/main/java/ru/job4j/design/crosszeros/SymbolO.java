@@ -21,8 +21,12 @@ public class SymbolO implements Symbol {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SymbolO symbolO = (SymbolO) o;
         return Objects.equals(this.o, symbolO.o);
     }

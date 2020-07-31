@@ -16,7 +16,7 @@ public class MenuStartUI {
     }
 
     private void showMainMenu(ArrayList<Action> actions) {
-        for(Action action : actions) {
+        for (Action action : actions) {
             System.out.println(actions.indexOf(action) + ". " + action.name());
         }
     }

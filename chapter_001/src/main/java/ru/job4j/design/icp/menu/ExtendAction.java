@@ -21,7 +21,9 @@ public class ExtendAction implements Action {
         Paragraph paragraph = new Paragraph();
         paragraph.setPrefix(prefix + "---");
         paragraph.setName(paragraph.getPrefix() + name);
-        menu.add(number + 1 + sub, paragraph); //As the ArrayList is used to store paragraphs, we need to insert the subParagraph one item ahead plus quantity of existing ones.
+        menu.add(number + 1 + sub, paragraph);
+        //As the ArrayList is used to store paragraphs,
+        // we need to insert the subParagraph one item ahead plus quantity of existing ones.
         output.accept("Пункт расширен");
         return true;
     }

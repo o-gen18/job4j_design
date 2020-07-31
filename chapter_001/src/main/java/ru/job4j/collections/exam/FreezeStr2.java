@@ -25,8 +25,7 @@ public class FreezeStr2 {
                 map2.put(c, c);
             }
 
-            if (setForDuplicates1.equals(setForDuplicates2) && map1.equals(map2))
-            {
+            if (setForDuplicates1.equals(setForDuplicates2) && map1.equals(map2)) {
                 result = true;
             }
         }

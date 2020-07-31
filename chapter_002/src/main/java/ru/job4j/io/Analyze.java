@@ -8,15 +8,17 @@ public class Analyze {
     public void unavailable(String source, String target) {
         StringJoiner result = new StringJoiner("");
         try (BufferedReader read = new BufferedReader(new FileReader(source));
-            PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(target)))) {
+             PrintWriter out = new PrintWriter(new BufferedOutputStream(
+                     new FileOutputStream(target)))) {
             read.lines().forEach(line -> {
                 char latestChar = '\u0000';
                 if (result.length() > 0) {
                     latestChar = result.toString().charAt(result.toString().length() - 1);
                 }
-                if ((line.startsWith("400") || line.startsWith("500"))&&(latestChar != ';')) {
+                if ((line.startsWith("400") || line.startsWith("500")) && (latestChar != ';')) {
                     result.add(line.substring(4) + ";");
-                } else if ((line.startsWith("200") || line.startsWith("300"))&&(latestChar == ';')) {
+                } else if ((line.startsWith("200") || line.startsWith("300"))
+                        && (latestChar == ';')) {
                     result.add(line.substring(4) + System.lineSeparator());
                 }
             });
@@ -27,8 +29,8 @@ public class Analyze {
     }
 
     /*
-    * Returns a String representation of the result produced by method "unavailable"
-    * to check it in the test class. (Add some words to commit again)
+     * Returns a String representation of the result produced by method "unavailable"
+     * to check it in the test class. (Add some words to commit again)
      */
 
     public String readResult(String path) {

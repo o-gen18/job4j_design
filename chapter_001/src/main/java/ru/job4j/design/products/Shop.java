@@ -13,15 +13,14 @@ public class Shop implements Storage {
     @Override
     public boolean accept(Food food) {
         boolean result = false;
-            if (food.getExpiryPercentage() >= 75) {
-                food.setDiscount("50%");
-                result = true;
-            } else if (food.getExpiryPercentage() < 75 && food.getExpiryPercentage() >= 25) {
-                result = true;
-            }
-            return result;
+        if (food.getExpiryPercentage() >= 75) {
+            food.setDiscount("50%");
+            result = true;
+        } else if (food.getExpiryPercentage() < 75 && food.getExpiryPercentage() >= 25) {
+            result = true;
         }
-
+        return result;
+    }
 
     @Override
     public void add(Food food) {

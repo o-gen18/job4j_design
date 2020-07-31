@@ -1,6 +1,6 @@
 package ru.job4j.design.srp;
 
-public class DocFormatHTML implements DocFormat{
+public class DocFormatHTML implements DocFormat {
     @Override
     public StringBuilder formatHead(String head) {
         StringBuilder changed = new StringBuilder("<div><h1>");

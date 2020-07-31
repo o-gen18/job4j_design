@@ -16,7 +16,7 @@ public class ControlQuality {
 
     private Set<Storage> storages = new HashSet<>();
 
-    public ControlQuality(Storage...storages) {
+    public ControlQuality(Storage... storages) {
         for (Storage storage : storages) {
             this.storages.add(storage);
         }
@@ -24,6 +24,7 @@ public class ControlQuality {
 
     /**
      * Getter and Setter of Calendar-now instance for testing;
+     *
      * @return
      */
     public Calendar getNow() {

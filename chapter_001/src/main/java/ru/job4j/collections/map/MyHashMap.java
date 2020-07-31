@@ -9,15 +9,15 @@ public class MyHashMap<K, V> implements Iterable<V> {
 
     private int modCount = 0;
 
-    private final float LOAD_FACTOR = 0.75f;
+    private final float loadFactor = 0.75f;
 
     private int latestCapacity;
 
     private static class Entry<K, V> {
-        final int hash;
-        final K key;
-        V value;
-        Entry<K, V> next;
+        private final int hash;
+        private final K key;
+        private V value;
+        private Entry<K, V> next;
 
         protected Entry(int hash, K key, V value, Entry<K, V> next) {
             this.hash = hash;
@@ -44,6 +44,11 @@ public class MyHashMap<K, V> implements Iterable<V> {
         }
     }
 
+    public MyHashMap() {
+        array = (Entry<K, V>[]) new Entry<?, ?>[16];
+        latestCapacity = array.length;
+    }
+
     private int rehash(K key, Entry<?, ?>[] newArray) {
         int hash = Objects.hash(key);
         return (hash & 0x7FFFFFFF) % newArray.length;
@@ -55,20 +60,19 @@ public class MyHashMap<K, V> implements Iterable<V> {
             if (array[i] == null) {
                 continue;
             }
-            for (Entry<K, V> pair = (Entry<K, V>) array[i]; pair != null; ) {
-                int position = rehash(pair.getKey(), newArray);
-                if (newArray[position] != null) {
-                    newArray[position].next = pair;
-                } else {
-                    newArray[position] = pair;
-                }
+            for (Entry<K, V> pair = (Entry<K, V>) array[i]; pair != null;) {
+                Entry<K, V> newHead = pair;
                 pair = pair.next;
+
+                int position = rehash(newHead.getKey(), newArray);
+                newHead.next = newArray[position];
+                newArray[position] = newHead;
             }
         }
         array = newArray;
         latestCapacity = array.length;
     }
-//    private void enlargeArray() {
+//    private void enlargeArray() { // Метод предложенный Rail Shamsemuhametov
 //        int prevCapacity = latestCapacity;
 //        latestCapacity = latestCapacity << 1;
 //        Entry<K, V>[] newArray = new Entry[latestCapacity];
@@ -81,30 +85,29 @@ public class MyHashMap<K, V> implements Iterable<V> {
 //        array = newArray;
 //    }
 
-    public MyHashMap() {
-        array = (Entry<K, V>[]) new Entry<?, ?>[10];
-        latestCapacity = array.length;
-    }
-
-    public boolean insert(K key, V value) {
-        if ((float) array.length/index >= LOAD_FACTOR) {
+    public V insert(K key, V value) {
+        if ((float) array.length / index >= loadFactor) {
             enlargeArray();
         }
         int hash = Objects.hash(key);
         int position = (hash & 0x7FFFFFFF) % array.length;
-        if (array[position] != null) {
-            array[position].next = new Entry<K, V>(hash, key, value, null);
-        } else {
-            array[position] = new Entry<>(hash, key, value, null);
-            index++;
-            modCount++;
+        Entry<K, V> oldHeadOfBucket = array[position];
+        for (; oldHeadOfBucket != null; oldHeadOfBucket = oldHeadOfBucket.next) {
+            if ((oldHeadOfBucket.hash == hash) && oldHeadOfBucket.key.equals(key)) {
+                V old = oldHeadOfBucket.value;
+                oldHeadOfBucket.value = value;
+                return old;
+            }
         }
-        return true;
+        array[position] = new Entry<K, V>(hash, key, value, oldHeadOfBucket);
+        modCount++;
+        index++;
+        return null;
     }
 
     public V get(K key) {
         int hash = Objects.hash(key);
-        int index = (hash & 0x7FFFFFFF)  % array.length;
+        int index = (hash & 0x7FFFFFFF) % array.length;
         V value = null;
         for (Entry<K, V> pair = array[index]; pair != null;) {
             if (pair.getKey().equals(key)) {
@@ -126,6 +129,9 @@ public class MyHashMap<K, V> implements Iterable<V> {
             Entry<K, V> previous = null;
             Entry<K, V> head = array[position];
             if (head.key.equals(key)) {
+                if (array[position].next == null) {
+                    index--;
+                }
                 array[position] = array[position].next;
                 modCount++;
                 result = true;

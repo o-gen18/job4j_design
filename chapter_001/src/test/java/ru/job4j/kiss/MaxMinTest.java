@@ -16,6 +16,7 @@ public class MaxMinTest {
         Integer result = maxMin.max(list, (el1, el2) -> el1.compareTo(el2));
         assertThat(result, is(expected));
     }
+
     @Test
     public void whenGetMinElement() {
         MaxMin maxMin = new MaxMin();

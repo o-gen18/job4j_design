@@ -10,7 +10,8 @@ public class Food {
     private double price;
     private String discount;
 
-    public Food(String name, Calendar createDate, Calendar expiryDate, double price, String discount) {
+    public Food(String name, Calendar createDate,
+                Calendar expiryDate, double price, String discount) {
         this.name = name;
         this.createDate = createDate;
         this.expiryDate = expiryDate;
@@ -58,16 +59,17 @@ public class Food {
         this.discount = discount;
     }
 
-
     /**
      * Calculates the percentage value of food's expiry date.
+     *
      * @return int number meaning percents.
      */
     public int getExpiryPercentage() {
         int percent = -1;
         if (!(Calendar.getInstance().getTimeInMillis() >= expiryDate.getTimeInMillis())) {
-            percent = (int) (100 * (Calendar.getInstance().getTimeInMillis() - createDate.getTimeInMillis()) /
-                    (expiryDate.getTimeInMillis() - createDate.getTimeInMillis()));
+            percent = (int) (100 * (Calendar.getInstance().getTimeInMillis()
+                    - createDate.getTimeInMillis())
+                    / (expiryDate.getTimeInMillis() - createDate.getTimeInMillis()));
         }
         return percent;
     }
@@ -79,8 +81,12 @@ public class Food {
 
     @Override
     public boolean equals(Object o) {
-        if(this == o) return true;
-        if(o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Food food = (Food) o;
         return Objects.equals(name, food.name) && Objects.equals(discount, food.discount);
     }

@@ -151,7 +151,8 @@ public class ReportEngineTest {
         store.add(worker);
         ReportEngine engine = new ReportForAccountants(store, docFormat);
         StringBuilder expected = new StringBuilder()
-                .append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><document><name>Report</name>").append(System.lineSeparator())
+                .append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><document><name>Report</name>")
+                .append(System.lineSeparator())
                 .append("<lines>Name; Hired; Fired; Salary</lines>")
                 .append(System.lineSeparator())
                 .append(worker.getName()).append(";")

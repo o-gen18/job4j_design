@@ -28,7 +28,8 @@ public class ReportEngineForHr implements ReportEngine {
                 .append(System.lineSeparator())
                 .append(docFormat.formatBody("Name; Salary"))
                 .append(System.lineSeparator());
-        List<Employer> sorted = store.findBy(filter).stream().sorted(new ComparatorSalaryDown()).collect(Collectors.toList());
+        List<Employer> sorted = store.findBy(filter).stream()
+                .sorted(new ComparatorSalaryDown()).collect(Collectors.toList());
         for (Employer employer : sorted) {
             text.append(employer.getName()).append(";")
                     .append(employer.getSalary()).append(";")

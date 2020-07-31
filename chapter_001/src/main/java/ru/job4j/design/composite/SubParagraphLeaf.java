@@ -5,14 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 
 public class SubParagraphLeaf implements MenuComponent {
+    private List<MenuComponent> subSubParagraphs = new ArrayList<MenuComponent>();
 
     private String name;
 
     public SubParagraphLeaf(String name) {
         this.name = name;
     }
-
-    List<MenuComponent> subSubParagraphs = new ArrayList<MenuComponent>();
 
     @Override
     public void add(MenuComponent subSubParagraph) {

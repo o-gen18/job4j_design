@@ -6,13 +6,13 @@ import java.util.List;
 
 public class ParagraphComposite implements MenuComponent {
 
+    private List<MenuComponent> subParagraphs = new ArrayList<MenuComponent>();
+
     private String name;
 
     public ParagraphComposite(String name) {
         this.name = name;
     }
-
-    List<MenuComponent> subParagraphs = new ArrayList<MenuComponent>();
 
     @Override
     public void add(MenuComponent subParagraph) {
@@ -39,7 +39,7 @@ public class ParagraphComposite implements MenuComponent {
         System.out.println(getName());
 
         Iterator<MenuComponent> menuIterator = subParagraphs.iterator();
-        while(menuIterator.hasNext()) {
+        while (menuIterator.hasNext()) {
             MenuComponent subParagraph = menuIterator.next();
             subParagraph.print();
         }

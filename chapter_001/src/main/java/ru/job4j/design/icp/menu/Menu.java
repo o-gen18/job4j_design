@@ -19,9 +19,9 @@ public class Menu {
     }
 
     public void showAll() {
-        if(!(list.isEmpty())) {
+        if (!(list.isEmpty())) {
             for (Paragraph paragraph : list) {
-                System.out.println(list.indexOf(paragraph) + ". " +  paragraph.getName());
+                System.out.println(list.indexOf(paragraph) + ". " + paragraph.getName());
             }
         } else {
             System.out.println("Меню еще не создано");

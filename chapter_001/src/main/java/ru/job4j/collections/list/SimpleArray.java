@@ -13,12 +13,6 @@ public class SimpleArray<T> implements Iterable<T> {
 
     private int latestCapacity;
 
-    private void enlargeContainer() {
-        container = Arrays.copyOf(container, latestCapacity * 2);
-        latestCapacity *= 2;
-        modCount++;
-    }
-
     public SimpleArray() {
         container = new Object[initialCapacity];
         latestCapacity += container.length;
@@ -39,6 +33,12 @@ public class SimpleArray<T> implements Iterable<T> {
 
     public T get(int position) {
         return (T) this.container[Objects.checkIndex(position, index)];
+    }
+
+    private void enlargeContainer() {
+        container = Arrays.copyOf(container, latestCapacity * 2);
+        latestCapacity *= 2;
+        modCount++;
     }
 
     @Override

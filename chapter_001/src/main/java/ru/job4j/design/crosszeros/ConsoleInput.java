@@ -30,7 +30,8 @@ public class ConsoleInput implements Input {
     public int askInt(String question, int max) {
         int selected = askChoice(question);
         if (!(selected >= 0 && selected < max)) {
-            throw new IllegalStateException(String.format("Out of limit %s > [0, %s]", selected, max));
+            throw new IllegalStateException(String.format(
+                    "Out of limit %s > [0, %s]", selected, max));
         }
         return selected;
     }
@@ -42,7 +43,7 @@ public class ConsoleInput implements Input {
         Symbol result = null;
         System.out.println(question);
         char input = scanner.nextLine().charAt(0);
-        if(symbolX.verify(input)) {
+        if (symbolX.verify(input)) {
             result = symbolX;
         } else if (symbolO.verify(input)) {
             result = symbolO;

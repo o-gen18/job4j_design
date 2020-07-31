@@ -7,6 +7,7 @@ public interface UserChoice {
 
     /**
      * Abstract method that names whatever action;
+     *
      * @return string representation of action.
      */
     String name();
@@ -15,6 +16,7 @@ public interface UserChoice {
      * Abstract method that performs a certain action of Calculator
      * based on the chosen option in CalcInput and finally passes the
      * result of the calculation to Consumer.
+     *
      * @param input
      * @param calculator
      * @param output

@@ -3,6 +3,7 @@ package ru.job4j.design.calculator;
 public class Calculator {
     /**
      * Sums up the two given arguments;
+     *
      * @param first
      * @param second
      * @return the result of sum.
@@ -13,6 +14,7 @@ public class Calculator {
 
     /**
      * Divides the first argument by the second one.
+     *
      * @param first
      * @param second
      * @return the result of division.
@@ -23,6 +25,7 @@ public class Calculator {
 
     /**
      * Multiplies two given arguments;
+     *
      * @param first
      * @param second
      * @return the result of multiplication.
@@ -33,6 +36,7 @@ public class Calculator {
 
     /**
      * Subtracts the second argument from the first one.
+     *
      * @param first
      * @param second
      * @return the result of subtraction.
@@ -41,7 +45,11 @@ public class Calculator {
         return first - second;
     }
 
-    public double sinus(double angle) { return Math.sin(angle); }
+    public double sinus(double angle) {
+        return Math.sin(angle);
+    }
 
-    public double cosinus(double angle) { return Math.cos(angle); }
+    public double cosinus(double angle) {
+        return Math.cos(angle);
+    }
 }

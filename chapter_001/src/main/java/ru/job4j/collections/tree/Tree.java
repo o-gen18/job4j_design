@@ -10,16 +10,14 @@ public class Tree<E> implements SimpleTree<E> {
         this.root = new Node<E>(root);
     }
 
-
-
     @Override
     public boolean add(E parent, E child) {
         boolean result = false;
         Node<E> temp = null;
         if (findBy(parent).isPresent()) {
             temp = findBy(parent).get();
-            if (!temp.children.contains(new Node<E>(child))) {
-                temp.children.add(new Node<E>(child));
+            if (!temp.getChildren().contains(new Node<E>(child))) {
+                temp.getChildren().add(new Node<E>(child));
                 result = true;
             }
         }
@@ -36,14 +34,14 @@ public class Tree<E> implements SimpleTree<E> {
                 rsl = Optional.of(el);
                 break;
             }
-            data.addAll(el.children);
+            data.addAll(el.getChildren());
         }
         return rsl;
     }
 
     @Override
     public Optional<Node<E>> findBy(E value) {
-        return findByPredicate(el -> el.value.equals(value));
+        return findByPredicate(el -> el.getValue().equals(value));
     }
 
     public boolean isBinary() {
@@ -52,11 +50,11 @@ public class Tree<E> implements SimpleTree<E> {
         data.offer(this.root);
         while (!data.isEmpty()) {
             Node<E> el = data.poll();
-            if (!(el.children.size() <= 2)) {
+            if (!(el.getChildren().size() <= 2)) {
                 result = false;
                 break;
             }
-            data.addAll(el.children);
+            data.addAll(el.getChildren());
         }
         return result;
     }

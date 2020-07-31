@@ -25,8 +25,10 @@ public class StartUI {
         start.init(start, board, firstPlayer, difficulty, input);
     }
 
-    public void init(StartUI start, Board board, Player[] firstPlayer, Difficulty difficulty, Input input) {
-        System.out.println("Начало игры! Первым ходит " + firstPlayer[0].name() + " - Режим: " + difficulty.name());
+    public void init(StartUI start, Board board, Player[] firstPlayer,
+                     Difficulty difficulty, Input input) {
+        System.out.println("Начало игры! Первым ходит " + firstPlayer[0].name()
+                + " - Режим: " + difficulty.name());
         while (!(difficulty.victory())) {
             board.printBoard();
             Symbol symbol = firstPlayer[0].go(board, input);
@@ -73,7 +75,7 @@ public class StartUI {
 
     public Player[] firstPlayer(Player[] players) {
         int turnFirst = new Random().nextInt(2);
-        return new Player[] {players[turnFirst], players[players.length - 1 - turnFirst]};
+        return new Player[]{players[turnFirst], players[players.length - 1 - turnFirst]};
     }
 
     public Player[] switchTurn(Player[] players) {

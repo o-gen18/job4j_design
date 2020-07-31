@@ -12,7 +12,7 @@ public class ControlQualityTest {
     @Test
     public void whenAllocateProducts() {
         Calendar january20 = Calendar.getInstance();
-        january20.set(2020, Calendar.JANUARY,15);
+        january20.set(2020, Calendar.JANUARY, 15);
         Calendar november19 = Calendar.getInstance();
         november19.set(2019, Calendar.NOVEMBER, 15);
         Calendar february20 = Calendar.getInstance();
@@ -51,7 +51,7 @@ public class ControlQualityTest {
     @Test
     public void whenCheckQualityPercentageMethod() {
         Calendar january20 = Calendar.getInstance();
-        january20.set(2020, Calendar.JANUARY,15);
+        january20.set(2020, Calendar.JANUARY, 15);
         Calendar november19 = Calendar.getInstance();
         november19.set(2019, Calendar.NOVEMBER, 15);
         Calendar february20 = Calendar.getInstance();
@@ -75,7 +75,7 @@ public class ControlQualityTest {
     @Test
     public void whenResortProducts() {
         Calendar january20 = Calendar.getInstance();
-        january20.set(2020, Calendar.JANUARY,15);
+        january20.set(2020, Calendar.JANUARY, 15);
         Calendar november19 = Calendar.getInstance();
         november19.set(2019, Calendar.NOVEMBER, 15);
         Calendar february20 = Calendar.getInstance();

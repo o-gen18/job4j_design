@@ -1,6 +1,7 @@
 package ru.job4j.collections.exam;
 
 import org.junit.Test;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -17,6 +18,6 @@ public class FreezeStrTest {
 
     @Test
     public void whenNotMultiEq() {
-        assertThat(FreezeStr2.eq("heloo", "hello"), is (false));
+        assertThat(FreezeStr2.eq("heloo", "hello"), is(false));
     }
 }

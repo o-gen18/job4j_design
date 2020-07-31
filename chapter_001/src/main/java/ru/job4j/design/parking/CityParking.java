@@ -7,6 +7,12 @@ public class CityParking implements Parking {
     private int trucks;
     private int n;
 
+    public CityParking(int smallCars, int trucks, int n) {
+        this.smallCars = smallCars;
+        this.trucks = trucks;
+        this.n = n;
+    }
+
     public int getSmallCars() {
         return smallCars;
     }
@@ -31,19 +37,18 @@ public class CityParking implements Parking {
         this.n = n;
     }
 
-    public CityParking(int smallCars, int trucks, int n) {
-        this.smallCars = smallCars;
-        this.trucks = trucks;
-        this.n = n;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         CityParking parking = (CityParking) o;
-        return Objects.equals(smallCars, parking.smallCars) && Objects.equals(trucks, parking.trucks) &&
-                Objects.equals(n, parking.n);
+        return Objects.equals(smallCars, parking.smallCars)
+                && Objects.equals(trucks, parking.trucks)
+                && Objects.equals(n, parking.n);
     }
 
     @Override
