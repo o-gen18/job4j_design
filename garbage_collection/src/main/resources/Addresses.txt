@@ -1,0 +1,3 @@
+Australia, Sydney, Ramon st 22, apartment 2
+United Kingdom, London, Picadilly st 241, apartment 13
+Russia, Rostov-on-Don, Mechnikova 75A, apartment 42
