@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class Cache {
 
     private Map<String, SoftReference<String>> cache = new HashMap<>();
@@ -19,7 +18,11 @@ public class Cache {
         } else {
             String result = null;
             try {
-                result = String.join(System.lineSeparator(), Files.readAllLines(Path.of("C:\\Projects\\job4j_design\\garbage_collection\\src\\main\\resources", file)));
+                result = String.join(System.lineSeparator(),
+                        Files.readAllLines(Path.of(
+                                "C:\\Projects\\job4j_design\\"
+                                        + "garbage_collection\\src\\main\\resources",
+                                file)));
             } catch (IOException e) {
                 e.printStackTrace();
             }
