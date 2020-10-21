@@ -20,6 +20,8 @@
         <module>chapter_002</module>
         <module>chapter_003</module>
         <module>tracker</module>
+        <module>garbage_collection</module>
+        <module>concurrency</module>
     </modules>
     <dependencies>
         <dependency>
@@ -53,6 +55,11 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.30</version>
         </dependency>
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.13</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -61,8 +68,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
+                    <source>8</source>
+                    <target>8</target>
                     <excludes>
                         <exclude>**ru/job4j/ignore/*</exclude>
                     </excludes>
