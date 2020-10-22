@@ -12,7 +12,7 @@ public class ConsoleProgress implements Runnable {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         }
     }
@@ -20,7 +20,7 @@ public class ConsoleProgress implements Runnable {
     public static void main(String[] args) throws InterruptedException {
         Thread progress = new Thread(new ConsoleProgress());
         progress.start();
-        Thread.sleep(1000);
+        Thread.sleep(10000);
         progress.interrupt();
     }
 }
