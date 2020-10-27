@@ -5,16 +5,16 @@ import java.net.URL;
 
 public class WgetDownload {
 
-    public static void main(String[] args) {
-        if (args.length != 2) {
+    public void download(String[] args) {
+        if (args.length != 3) {
             throw new IllegalStateException(
-                    "Please, specify the url and the preferred downloading speed");
+                    "Please, specify the url, output file and the preferred downloading speed");
         }
 
-        int speed = Integer.parseInt(args[1]) * 1000;
+        int speed = Integer.parseInt(args[2]) * 1000;
 
         try (BufferedInputStream in = new BufferedInputStream(new URL(args[0]).openStream());
-             FileOutputStream out = new FileOutputStream("pom_tmp.xml")) {
+             FileOutputStream out = new FileOutputStream(args[1])) {
             byte[] dataBuffer = new byte[1024];
             int bytesRead = 0;
 
@@ -39,4 +39,14 @@ public class WgetDownload {
             e.printStackTrace();
         }
     }
+
+    public static void main(String[] args) {
+        WgetDownload test = new WgetDownload();
+        String[] arguments =
+            {"https://raw.githubusercontent.com/peterarsentev/course_test/master/pom.xml",
+                    "pom_temp.xml", "200"};
+        test.download(arguments);
+    }
 }
+
+
