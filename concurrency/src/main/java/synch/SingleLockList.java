@@ -13,14 +13,7 @@ public class SingleLockList<T> implements Iterable<T> {
 
     private SimpleArray<T> copy(SimpleArray<T> array) {
         SimpleArray<T> newCopy = new SimpleArray<>();
-        int index = 0;
-        while (true) {
-            try {
-                newCopy.add(array.get(index++));
-            } catch (IndexOutOfBoundsException e) {
-                break;
-            }
-        }
+        array.forEach(newCopy::add);
         return newCopy;
     }
 
