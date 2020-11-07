@@ -13,10 +13,10 @@ public class CountBarrier {
 
     public void count() {
         synchronized (monitor) {
+            System.out.println(++count);
             if (count == total) {
                 monitor.notifyAll();
             }
-            System.out.println(++count);
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
@@ -27,7 +27,7 @@ public class CountBarrier {
 
     public void await() {
         synchronized (monitor) {
-            if (total != count) {
+            while (total > count) {
                 try {
                     monitor.wait();
                 } catch (InterruptedException e) {
@@ -42,7 +42,8 @@ public class CountBarrier {
         Thread first = new Thread(
                 () -> {
                     System.out.println(Thread.currentThread().getName() + " started...");
-                    while (1 > 0) { //сделал так чтобы нить выходила из критической секции
+                    int i = 0;
+                    while (i++ < 50) { //сделал так чтобы нить выходила из критической секции
                         barrier.count();
                     }
                 }, "First");
