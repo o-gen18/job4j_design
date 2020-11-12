@@ -18,4 +18,8 @@ public class CASCount<Integer> {
     public int get() {
         return count.get();
     }
+
+    public void set(int value) {
+        count.set(value);
+    }
 }
