@@ -35,13 +35,12 @@ public class SimpleBlockingQueue<T> {
             if (queue.size() == 1) {
                 this.notifyAll();
             }
-            System.out.println("Added value " + value);
         }
     }
 
     public T poll() {
         synchronized (this) {
-            if (queue.size() == 0) {
+            if (queue.isEmpty()) {
                 try {
                     this.wait();
                 } catch (InterruptedException e) {
@@ -56,31 +55,9 @@ public class SimpleBlockingQueue<T> {
         }
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(3);
-        Thread producer = new Thread(
-                () -> {
-                    int count = 0;
-                    while (count++ < 50) {
-                        queue.offer(count);
-                        try {
-                            Thread.sleep(300);
-                        } catch (InterruptedException e) {
-                            Thread.currentThread().interrupt();
-                        }
-                    }
-                });
-        Thread consumer = new Thread(
-                () -> {
-                    int count = 0;
-                    while (count++ < 50) {
-                        System.out.println("Removed value " + queue.poll());
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            Thread.currentThread().interrupt();
-                        }
-                    }
-                });
+    public boolean isEmpty() {
+        synchronized (this) {
+            return queue.isEmpty();
+        }
     }
 }
