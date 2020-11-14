@@ -26,28 +26,4 @@ public class ThreadPool {
     public void shutdown() {
         threads.forEach(Thread::interrupt);
     }
-
-    public static void main(String[] args) throws InterruptedException {
-        ThreadPool pool = new ThreadPool();
-        Runnable job = () -> {
-            int i = 0;
-            while (i < 100) {
-                System.out.println(i);
-                i++;
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    Thread.currentThread().interrupt();
-                }
-            }
-        };
-        System.out.println("Before Job");
-        pool.work(job);
-//        for (int i = 4; i > 0; i--) {
-//            pool.work(job);
-//        }
-        Thread.sleep(10000);
-        pool.shutdown();
-    }
 }

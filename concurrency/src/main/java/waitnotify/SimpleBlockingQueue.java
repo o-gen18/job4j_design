@@ -24,7 +24,7 @@ public class SimpleBlockingQueue<T> {
 
     public void offer(T value) {
         synchronized (this) {
-            if (queue.size() == capacity) {
+            while (queue.size() == capacity) {
                 try {
                     this.wait();
                 } catch (InterruptedException e) {
@@ -40,7 +40,7 @@ public class SimpleBlockingQueue<T> {
 
     public T poll() {
         synchronized (this) {
-            if (queue.isEmpty()) {
+            while (queue.isEmpty()) {
                 try {
                     this.wait();
                 } catch (InterruptedException e) {
