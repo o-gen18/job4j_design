@@ -8,8 +8,7 @@ import static org.hamcrest.Matchers.is;
 
 public class ParallelIndexSearchTest {
 
-    /** @noinspection checkstyle:VisibilityModifier*/
-    public static User[] array;
+    private static User[] array;
 
     @Before
     public void init() {
