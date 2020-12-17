@@ -7,3 +7,5 @@
 Для ветки hotfix первый коммит.
 
 Для ветки hotfix второй коммит.
+
+New Changes after Staching
