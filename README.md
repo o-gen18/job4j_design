@@ -9,3 +9,5 @@
 Для ветки hotfix второй коммит.
 
 New Changes after Staching
+
+For Stash.
