@@ -5,3 +5,5 @@
 Changing Readme.md for new branch "task_388566"
 
 Making something for first commit.
+Second modification of the same file.
+Third modification of the same file. All these commits are to be gathered into one commit.
